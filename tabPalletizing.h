@@ -77,13 +77,6 @@ public:
 	void OnSlider(wxCommandEvent &evt);
 	void GRIPStateChange();
 
-	// Thread specific
-	// GRIPThread* thread;
-
-	// Your Thread routine
-	// call GRIPThread::CheckPoint() regularly
-	// void Thread();
-	// void onCompleteThread();
 
 	DECLARE_DYNAMIC_CLASS(PalletizingTab)
 	DECLARE_EVENT_TABLE()

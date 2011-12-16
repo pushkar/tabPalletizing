@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 2.6)
-project (tabTemplate)
+project (tabPalletizing)
 
 # include (${CMAKE_INSTALL_PREFIX}/share/dart/DART_config.cmake)
 # include (${CMAKE_INSTALL_PREFIX}/share/grip/GRIP_config.cmake)

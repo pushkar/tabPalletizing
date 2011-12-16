@@ -104,6 +104,7 @@ PalletizingTab::PalletizingTab(wxWindow *parent, const wxWindowID id,
 	printf("starting server\n");
 	server = new GRIPServer();
 	server->setup();
+	thread->CreateThread();
 }
 
 //Handle slider changes
@@ -181,9 +182,9 @@ void PalletizingTab::GRIPStateChange() {
 
 
 void PalletizingTab::Thread() {
-
+	server->acceptMode();
 }
 
 void PalletizingTab::onCompleteThread() {
-
+	printf("Not accepting any more connections\n");
 }
