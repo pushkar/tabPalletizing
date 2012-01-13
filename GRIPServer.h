@@ -97,26 +97,37 @@ public:
 			exit(1);
 		}
 
-		printf("server: waiting for connections...\n");
+		// printf("server: setup done...\n");
 
 		return 0;
 	}
 
 	void acceptMode() {
+		// printf("server: waiting for new connections...\n");
 		sin_size = sizeof their_addr;
 		new_fd = accept(sockfd, (struct sockaddr *) &their_addr, &sin_size);
 		if (new_fd == -1) {
 			perror("accept");
-		}
-		else {
-			inet_ntop(their_addr.ss_family, get_in_addr((struct sockaddr *) &their_addr), s, sizeof s);
-			printf("server: got connection from %s\n", s);
+		} else {
+			inet_ntop(their_addr.ss_family,
+					get_in_addr((struct sockaddr *) &their_addr), s, sizeof s);
+			// printf("server: got connection from %s\n", s);
 		}
 
+		std::string reply = "HTTP/1.1 200 OK\n"
+			"Content-Type: text/html\n"
+			"Accept-Ranges: bytes\n"
+			"Connection: close\n"
+			"\nWelcome to the GRIP Server!";
+
+		if (send(new_fd, reply.c_str(), reply.size(), 0) == -1)
+			perror("send");
+		close(new_fd);
+		return;
 	}
 
 	~GRIPServer() {
-
+		close(sockfd);
 	}
 };
 

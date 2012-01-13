@@ -101,10 +101,11 @@ PalletizingTab::PalletizingTab(wxWindow *parent, const wxWindowID id,
 	ss2BoxS->Add(sampleGRIPSlider2, 1, wxEXPAND | wxALL, 6);
 	ss2BoxS->Add(sampleText2, 1, wxEXPAND | wxALL, 6);
 
-	printf("starting server\n");
 	server = new GRIPServer();
 	server->setup();
-	thread->CreateThread();
+
+	thread = new GRIPThread(this);
+	gripThreadErrorToString(thread->CreateThread());
 }
 
 //Handle slider changes
@@ -182,7 +183,9 @@ void PalletizingTab::GRIPStateChange() {
 
 
 void PalletizingTab::Thread() {
-	server->acceptMode();
+	while(1) {
+		server->acceptMode();
+	}
 }
 
 void PalletizingTab::onCompleteThread() {
