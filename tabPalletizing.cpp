@@ -58,6 +58,7 @@ enum sliderNames {
 //Add a handler for slider changes
 BEGIN_EVENT_TABLE(PalletizingTab, wxPanel)
 EVT_COMMAND (wxID_ANY, wxEVT_GRIP_SLIDER_CHANGE, PalletizingTab::OnSlider)
+EVT_MENU(MenuPalletLoad,  PalletizingTab::OnPalletLoad)
 END_EVENT_TABLE ()
 
 // Class constructor for the tab: Each tab will be a subclass of GRIPTab
@@ -101,11 +102,18 @@ PalletizingTab::PalletizingTab(wxWindow *parent, const wxWindowID id,
 	ss2BoxS->Add(sampleGRIPSlider2, 1, wxEXPAND | wxALL, 6);
 	ss2BoxS->Add(sampleText2, 1, wxEXPAND | wxALL, 6);
 
-	server = new GRIPServer();
-	server->setup();
+	wxMenu *palletMenu = new wxMenu;
+	palletMenu->Append(MenuPalletLoad, wxT("L&oad Palletizing Files"));
 
-	thread = new GRIPThread(this);
-	gripThreadErrorToString(thread->CreateThread());
+	wxMenuBar *menuBar = frame->GetMenuBar();
+	menuBar->Append(palletMenu, wxT("&Palletizing"));
+	frame->SetMenuBar(menuBar);
+
+//	server = new GRIPServer();
+//	server->setup();
+//
+//	thread = new GRIPThread(this);
+//	gripThreadErrorToString(thread->CreateThread());
 }
 
 //Handle slider changes
@@ -190,4 +198,8 @@ void PalletizingTab::Thread() {
 
 void PalletizingTab::onCompleteThread() {
 	printf("Not accepting any more connections\n");
+}
+
+void PalletizingTab::OnPalletLoad(wxCommandEvent& WXUNUSED(event)) {
+
 }

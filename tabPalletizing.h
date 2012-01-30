@@ -77,9 +77,14 @@ public:
 	void OnSlider(wxCommandEvent &evt);
 	void GRIPStateChange();
 
+	void OnPalletLoad(wxCommandEvent& event);
 
 	DECLARE_DYNAMIC_CLASS(PalletizingTab)
 	DECLARE_EVENT_TABLE()
+};
+
+enum {
+	MenuPalletLoad
 };
 
 #endif
